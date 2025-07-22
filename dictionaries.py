@@ -86,3 +86,30 @@ print(len(games))  # Output: 3
 print(games.keys())  # Output: dict_keys(['title', 'type', 'publisher'])
 print(games.values())  # Output: dict_values(['Diablo', 'RPG', 'Blizzard'])
 print(games.items())  # Output: dict_items([('title', 'Diablo'), ('type', 'RPG'), ('publisher', 'Blizzard')])
+
+# Iteration
+for key in games:
+    print(key, games[key])  # Output:
+    '''
+    title Diablo
+    type RPG
+    publisher Blizzard
+    '''
+for key, value in games.items():
+    print(key, value)  # Output:
+    '''
+    title Diablo
+    type RPG
+    publisher Blizzard
+    '''
+
+# Dictionaty comprehension
+# Create a dict with squares of numbers
+squares = {x: x * x for x in range(1, 10)}
+print(squares)
+
+# Create a dictionary from 2 lists (get k,v from each list and combine them)
+let = ['a', 'b', 'c']
+num = [1, 2, 3, ]
+combined = {k: v for k, v in zip(let, num)}
+print(combined)  # Output: {'a': 1, 'b': 2, 'c': 3}
