@@ -41,3 +41,48 @@ print(persons)  # Output {'name': 'Lamba', 'surname': 'Milena', 'email': 'mlamba
 print(persons)  # Output: {'name': 'Lamba', 'surname': 'Milena', 'email': 'mlamba@yahoo.com'}
 persons['email'] = 'milena.lamba@yahoo.com'
 print(persons)  # Output: {'name': 'Lamba', 'surname': 'Milena', 'email': 'milena.lamba@yahoo.com'}
+
+# Update multiple values at once
+persons.update({'surname': 'Antonia', 'age': '39'})
+print(persons)  # Output: {'name': 'Lamba', 'surname': 'Antonia', 'email': 'milena.lamba@yahoo.com', 'children':
+# 'yes', 'age': '39'}
+
+# Removing items
+favourite_food = {
+    'name': 'burger',
+    'delivered_by': 'burger island',
+    'price': '60',
+    'currency': 'ron'
+}
+print(favourite_food)  # Output{'name': 'burger', 'delivered_by': 'burger island', 'price': '60', 'currency': 'ron'}
+del favourite_food['currency']
+print(favourite_food)  # Output {'name': 'burger', 'delivered_by': 'burger island', 'price': '60'}
+
+print(favourite_food.pop('price'))  # Output: 60 (pop removes and also returns the removed value)
+print(favourite_food)  # Outout: {'name': 'burger', 'delivered_by': 'burger island'}
+
+favourite_food.update({'cooking_type': 'medium_rare'})
+print(favourite_food)  # Output {'name': 'burger', 'delivered_by': 'burger island', 'cooking_type': 'medium_rare'}
+print(favourite_food.popitem())  # Outout: ('cooking_type', 'medium_rare') (removes last entry and also returns it)
+print(favourite_food)  # Output: {'name': 'burger', 'delivered_by': 'burger island'}
+
+# Clear dictionary
+favourite_food.clear()  # Output {}
+
+# Dictionary operations
+games = {
+    'title': 'Diablo',
+    'type': 'RPG',
+    'publisher': 'Blizzard'
+}
+
+# Check if the keys exists
+print('title' in games)  # Output: True
+
+# Length of the dictionary
+print(len(games))  # Output: 3
+
+# Get all the keys, values, items (Dynamic view; it returns view object)
+print(games.keys())  # Output: dict_keys(['title', 'type', 'publisher'])
+print(games.values())  # Output: dict_values(['Diablo', 'RPG', 'Blizzard'])
+print(games.items())  # Output: dict_items([('title', 'Diablo'), ('type', 'RPG'), ('publisher', 'Blizzard')])
