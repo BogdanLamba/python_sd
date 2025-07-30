@@ -242,16 +242,180 @@ items_view = inventory.items()
 
 # Views reflect changes
 inventory["grapes"] = 10
-print(keys_view)   # dict_keys(['apples', 'oranges', 'bananas', 'grapes'])
-print(values_view) # dict_values([5, 3, 2, 10])
+print(keys_view)  # dict_keys(['apples', 'oranges', 'bananas', 'grapes'])
+print(values_view)  # dict_values([5, 3, 2, 10])
 print(items_view)  # dict_items([('apples', 5), ('oranges', 3), ('bananas', 2), ('grapes', 10)])
 
 # Membership tests
 print("apples" in keys_view)  # True
-print(2 in values_view)       # True
+print(2 in values_view)  # True
 print(("oranges", 3) in items_view)  # True
 
 # Set-like operations (keys view only)
 other_keys = {"apples", "pears", "kiwis"}
 print(keys_view & other_keys)  # {'apples'} (intersection)
 print(keys_view | other_keys)  # {'apples', 'oranges', 'bananas', 'grapes', 'pears', 'kiwis'} (union)
+
+# Here are 10 real-world examples of Python dictionaries in action, with practical code examples for each scenario:
+
+# 1. User Profiles (Social Media)
+user = {
+    "id": "u123",
+    "username": "python_lover",
+    "email": "user@example.com",
+    "followers": 542,
+    "following": 127,
+    "preferences": {"theme": "dark", "notifications": True}
+}
+
+# Update profile
+user["followers"] += 1
+user["preferences"]["theme"] = "light"
+
+print(f"{user['username']} now has {user['followers']} followers")
+# python_lover now has 543 followers
+
+# 2. Product Catalog (E-commerce)
+products = {
+    "1001": {
+        "name": "Wireless Mouse",
+        "price": 24.99,
+        "stock": 45,
+        "tags": ["electronics", "accessories"]
+    },
+    "1002": {
+        "name": "Mechanical Keyboard",
+        "price": 89.99,
+        "stock": 12,
+        "tags": ["electronics", "premium"]
+    }
+}
+
+# Check stock
+product_id = "1002"
+if products[product_id]["stock"] > 0:
+    print(f"{products[product_id]['name']} available for ${products[product_id]['price']}")
+
+# 3. Configuration Settings (App Development)
+app_config = {
+    "debug_mode": False,
+    "max_connections": 10,
+    "allowed_origins": ["https://example.com", "localhost"],
+    "db_config": {
+        "host": "db.example.com",
+        "port": 5432,
+        "username": "admin"
+    }
+}
+
+# Runtime modification
+app_config["debug_mode"] = True
+app_config["db_config"]["timeout"] = 30  # Add new setting
+
+print(f"Database timeout set to {app_config['db_config']['timeout']} seconds")
+
+
+#4. Language Translation System
+translations = {
+    "en": {
+        "greeting": "Hello",
+        "farewell": "Goodbye"
+    },
+    "es": {
+        "greeting": "Hola",
+        "farewell": "Adiós"
+    },
+    "fr": {
+        "greeting": "Bonjour",
+        "farewell": "Au revoir"
+    }
+}
+
+def translate(lang, phrase):
+    return translations.get(lang, {}).get(phrase, phrase)
+
+print(translate("es", "greeting"))  # Hola
+print(translate("fr", "farewell"))  # Au revoir
+
+#5. Student Gradebook (Education)
+gradebook = {
+    "Alice": {"Math": 92, "Science": 88, "History": 95},
+    "Bob": {"Math": 78, "Science": 91, "History": 84},
+    "Charlie": {"Math": 85, "Science": 90, "History": 89}
+}
+
+# Add new student
+gradebook["Diana"] = {"Math": 95, "Science": 93, "History": 91}
+
+# Calculate average for a student
+alice_grades = gradebook["Alice"].values()
+average = sum(alice_grades) / len(alice_grades)
+print(f"Alice's average: {average:.1f}")  # Alice's average: 91.7
+
+# 6. API Response Handling (Web Development)
+api_response = {
+    "status": "success",
+    "data": {
+        "users": [
+            {"id": 1, "name": "Alice", "email": "alice@example.com"},
+            {"id": 2, "name": "Bob", "email": "bob@example.com"}
+        ],
+        "pagination": {
+            "total": 2,
+            "page": 1,
+            "per_page": 20
+        }
+    },
+    "timestamp": "2023-07-20T12:34:56Z"
+}
+
+# Extract user emails
+emails = [user["email"] for user in api_response["data"]["users"]]
+print(f"Fetched emails: {emails}")
+# Fetched emails: ['alice@example.com', 'bob@example.com']
+
+# 7. Hospital Patient Records (Healthcare)
+patients = {
+    "P1001": {
+        "name": "John Doe",
+        "age": 45,
+        "conditions": ["hypertension", "diabetes"],
+        "medications": {
+            "morning": ["Lisinopril", "Metformin"],
+            "evening": ["Metformin"]
+        }
+    },
+    "P1002": {
+        "name": "Jane Smith",
+        "age": 32,
+        "conditions": ["asthma"],
+        "medications": {
+            "as_needed": ["Albuterol"]
+        }
+    }
+}
+
+# Add new medication
+patients["P1001"]["medications"]["afternoon"] = ["Aspirin"]
+
+# Check for drug interactions
+if "Aspirin" in patients["P1001"]["medications"].get("afternoon", []):
+    print("Warning: Check for aspirin interactions")
+
+# 8. Geolocation Data (Mapping Apps)
+cities = {
+    "New York": {
+        "coordinates": (40.7128, -74.0060),
+        "population": 8_804_190,
+        "landmarks": ["Statue of Liberty", "Central Park"]
+    },
+    "London": {
+        "coordinates": (51.5074, -0.1278),
+        "population": 8_982_000,
+        "landmarks": ["Big Ben", "London Eye"]
+    }
+}
+
+# Find cities with population > 8.5 million
+large_cities = [city for city, data in cities.items() if data["population"] > 8_500_000]
+print(f"Major cities: {large_cities}")  # Major cities: ['New York', 'London']
