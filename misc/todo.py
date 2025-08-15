@@ -149,27 +149,41 @@ class TodoList:
         
         return removed_count
 
+    def add_tasks_bulk(self, tasks_data: List[tuple], base_time: Optional[datetime] = None) -> None:
+        """Add multiple tasks at once.
+        
+        Args:
+            tasks_data: List of tuples (name, timedelta, priority)
+            base_time: Base time for calculating due dates (defaults to now)
+        """
+        if base_time is None:
+            base_time = datetime.now()
+        
+        for name, time_offset, priority in tasks_data:
+            due_date = base_time + time_offset
+            self.add_task(name, due_date, priority)
+
 
 def main():
     """Demo function showing TodoList usage."""
     todo_list = TodoList()
-    
-    # Add some sample tasks
+
     from datetime import timedelta
-    
-    now = datetime.now()
-    todo_list.add_task("Curatenie casa", now + timedelta(days=1), Priority.HIGH)
-    todo_list.add_task("Curatenie motan", now + timedelta(days=2), Priority.MEDIUM)
-    todo_list.add_task("Cumparaturi", now + timedelta(hours=2), Priority.HIGH)
-    todo_list.add_task("Curat frigider", now - timedelta(days=1), Priority.LOW)  # Overdue
-    
+
+    # Define sample tasks
+    sample_tasks = [
+        ("Curatenie casa", timedelta(days=1), Priority.HIGH),
+        ("Curatenie motan", timedelta(days=2), Priority.MEDIUM),
+        ("Cumparaturi", timedelta(hours=2), Priority.HIGH),
+        ("Curat frigider", timedelta(days=-1), Priority.LOW),
+    ]
+
+    # Add all tasks at once
+    todo_list.add_tasks_bulk(sample_tasks)
+
     # Complete one task
     todo_list.complete_task("Curatenie motan")
-    
+
     # Sort and display
     todo_list.sort_tasks(by_priority=True, by_due_date=True)
     todo_list.list_all_tasks()
-
-
-if __name__ == "__main__":
-    main()
