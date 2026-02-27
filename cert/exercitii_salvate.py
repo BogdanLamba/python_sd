@@ -1,4 +1,4 @@
-# Exercitiul 3 modulul 2
+# Exercitiul 3 modulul 1.2
 
 # def calculeaza_aria(raza):
 #     """
@@ -18,7 +18,7 @@
 #     aria = calculeaza_aria(raza)
 #     print(f"Aria cercului cu raza {raza} este: {aria} cm²")
 
-#Exercitiul 4 modulul 2
+#Exercitiul 4 modulul 1.2
 # def verifica_varsta(varsta):
 #     """
 #     Verifica varsta unei persoane si stabileste daca este majora sau minora.
@@ -44,3 +44,5 @@
 #     print(f"Varsta 18: {verifica_varsta(18)}")
 #     print(f"Varsta 1: {verifica_varsta(1)}")
 #     print(f"Varsta 25: {verifica_varsta(25)}")
+
+

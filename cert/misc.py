@@ -1,6 +1,15 @@
-import keyword
+punctaj = 0.85
+PRAG_PROMOVARE = 0.70
 
-print(keyword.iskeyword("if"))      # True
-print(keyword.iskeyword("print"))   # False — print nu este keyword!
-print(keyword.iskeyword("True"))    # True
-print(keyword.kwlist)               # Afișează lista completă de keywords
+if punctaj >= PRAG_PROMOVARE:
+    print("Promovat")
+else:
+    print("Picat")
+
+print(f"Punctaj in forma procentuala {punctaj:.1%}")
+
+numar = int(punctaj * 100)
+print(f"Decimal:     {numar}")
+print(f"Binar:       {numar:b}")
+print(f"Octal:       {numar:o}")
+print(f"Hexadecimal: {numar:x}")
