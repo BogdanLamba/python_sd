@@ -1,17 +1,21 @@
-def colecteaza_date():
-    nume    = input("Introdu numele: ")
-    nota    = float(input("Introdu nota: "))
-    materie = input("Introdu materia: ")
-    return {"nume": nume, "nota": nota, "materie": materie}
+n = int(input("Introdu un număr întreg: "))
 
+if n == 0:
+    print("Zero")
+elif n > 0 and n % 2 == 0:
+    print("Pozitiv par")
+elif n > 0 and n % 2 != 0:
+    print("Pozitiv impar")
+elif n < 0 and n % 2 == 0:
+    print("Negativ par")
+else:
+    print("Negativ impar")
 
-def rezolva_cerinte():
-    values = colecteaza_date()
-    print(f"{values['nota']:.2f}")
-    print(f"{values['nota'] / 10:.1%}")
-    print(f"{'Promovat' if values['nota'] >= 5 else 'Picat'}")
-    print("=" * 35)
-
-
-if __name__ == "__main__":
-    rezolva_cerinte()
+if n % 3 == 0 and n % 5 == 0:
+    print("Divizibil cu 3 și cu 5 (FizzBuzz!)")
+elif n % 3 == 0:
+    print("Divizibil cu 3 (Fizz)")
+elif n % 5 == 0:
+    print("Divizibil cu 5 (Buzz)")
+else:
+    print("Nu este divizibil nici cu 3, nici cu 5")
