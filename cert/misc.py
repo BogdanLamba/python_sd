@@ -1,14 +1,17 @@
-# Citire și conversie
-nume   = input("Introdu numele: ")
-varsta = int(input("Introdu vârsta: "))
+def colecteaza_date():
+    nume    = input("Introdu numele: ")
+    nota    = float(input("Introdu nota: "))
+    materie = input("Introdu materia: ")
+    return {"nume": nume, "nota": nota, "materie": materie}
 
-# Calcul cu valoarea convertită
-an_nastere = 2026 - varsta - 1
 
-print(f"Bună, {nume}!")
-print(f"Ai {varsta} ani și te-ai născut în {an_nastere}.")
+def rezolva_cerinte():
+    values = colecteaza_date()
+    print(f"{values['nota']:.2f}")
+    print(f"{values['nota'] / 10:.1%}")
+    print(f"{'Promovat' if values['nota'] >= 5 else 'Picat'}")
+    print("=" * 35)
 
-if varsta >= 18:
-    print("Ești major — ai acces complet.")
-else:
-    print(f"Ești minor — mai ai {18 - varsta} ani până la majorat.")
+
+if __name__ == "__main__":
+    rezolva_cerinte()
