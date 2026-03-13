@@ -1,21 +1,19 @@
-n = int(input("Introdu un număr întreg: "))
+suma = 0
+for i in range(1, 101):
+    suma += i
+print(f"Suma numerelor de la 1 la 100 este {suma}")
 
-if n == 0:
-    print("Zero")
-elif n > 0 and n % 2 == 0:
-    print("Pozitiv par")
-elif n > 0 and n % 2 != 0:
-    print("Pozitiv impar")
-elif n < 0 and n % 2 == 0:
-    print("Negativ par")
-else:
-    print("Negativ impar")
+i = 1
+while i <= 1000:
+    if i % 7 == 0 and i % 11 == 0:
+        print(f"Primul numar din intervalul [1, 1000] care este divizibil cu 7 și cu 11 simultan este {i}")
+        break
+    i += 1
 
-if n % 3 == 0 and n % 5 == 0:
-    print("Divizibil cu 3 și cu 5 (FizzBuzz!)")
-elif n % 3 == 0:
-    print("Divizibil cu 3 (Fizz)")
-elif n % 5 == 0:
-    print("Divizibil cu 5 (Buzz)")
+number = 97
+for i in range(2, number):
+    if number % i == 0:
+        print(f"Numarul nu este prim, este divizibil cu: {i}!")
+        break
 else:
-    print("Nu este divizibil nici cu 3, nici cu 5")
+    print(f"Numarul {number} este prim!")
