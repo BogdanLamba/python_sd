@@ -1,166 +1,348 @@
 """
-PCEP-30-02 | Lecția 4.1 — Funcții (Functions)
+PCEP-30-02 | Lecția 4.3 — Ierarhia Excepțiilor
 Fișier: cert/misc.py
 Style: Google Docstrings
 """
 
 
 # ============================================================
-# EXERCIȚIUL 1 — Definire și apelare de bază
+# EXERCIȚIUL 1 — Identificare excepții
 # ============================================================
-# TODO: Definește o funcție greet() care:
-#   - primește un parametru name (str)
-#   - returnează string-ul "Hello, {name}!"
-#   - are un docstring Google Style
+# TODO: Pentru fiecare bloc de cod de mai jos, scrie ce excepție
+# este aruncată și de ce (ca string în variabila corespunzătoare).
+# Rulează codul mental sau în consolă, NU în assert-uri.
 
-# scrie funcția aici
-def greet(name: str) -> str:
-    """
-    Args:
-        name (str): numele catre care se face salutarea
-    Returns:
-        str: un string de tip salutare catre numele introdus
-    """
-    return f"Hello, {name}!"
+# a) Ce excepție aruncă acest cod?
+# int("abc")
+ex1a = ""  # ex: "ValueError"
 
+# b) Ce excepție aruncă acest cod?
+# x = [1, 2, 3]; print(x[10])
+ex1b = ""
 
-# Teste
-assert greet("Python") == "Hello, Python!"
-assert greet("PCEP") == "Hello, PCEP!"
+# c) Ce excepție aruncă acest cod?
+# result = 10 / 0
+ex1c = ""
+
+# d) Ce excepție aruncă acest cod?
+# d = {"a": 1}; print(d["z"])
+ex1d = ""
+
+# e) Ce excepție aruncă acest cod?
+# print(undefined_variable)
+ex1e = ""
+
+assert ex1a == "ValueError",   f"1a gresit, ai: {ex1a}"
+assert ex1b == "IndexError",   f"1b gresit, ai: {ex1b}"
+assert ex1c == "ZeroDivisionError", f"1c gresit, ai: {ex1c}"
+assert ex1d == "KeyError",     f"1d gresit, ai: {ex1d}"
+assert ex1e == "NameError",    f"1e gresit, ai: {ex1e}"
 print("Exercițiul 1: toate testele au trecut ✓")
 
 
 # ============================================================
-# EXERCIȚIUL 2 — Valori returnate multiple
+# EXERCIȚIUL 2 — Ierarhia: isinstance() cu excepții
 # ============================================================
-# TODO: Definește o funcție min_max(numbers) care:
-#   - primește o listă de numere
-#   - returnează un tuple (minim, maxim)
-#   - NU folosește funcțiile built-in min() și max()
-#   - are un docstring Google Style
-def min_max(numbers: list) -> tuple:
-    """
-    Finds the minimum and maximum values in a list of numbers.
+# TODO: Completează valorile de True/False bazate pe ierarhia
+# de excepții Python (fără să rulezi codul — gândește ierarhia).
 
-    Args:
-        numbers: a list of numbers.
+# ValueError este subclasă a Exception?
+q2a = None   # True sau False
 
-    Returns:
-        A tuple of minium and maxim in the list
-    """
-    minimum = numbers[0]
-    maximum = numbers[0]
+# ZeroDivisionError este subclasă a ArithmeticError?
+q2b = None
 
-    for number in numbers[1:]:
-        if number < minimum:
-            minimum = number
-        if number > maximum:
-            maximum = number
+# IndexError este subclasă a LookupError?
+q2c = None
 
-    return minimum, maximum
+# Exception este subclasă a BaseException?
+q2d = None
 
+# KeyboardInterrupt este subclasă a Exception?
+q2e = None   # Atentie — acesta e o capcana!
 
-# scrie funcția aici
-
-# Teste
-assert min_max([3, 1, 4, 1, 5, 9]) == (1, 9)
-assert min_max([42]) == (42, 42)
-assert min_max([-5, 0, 5]) == (-5, 5)
+assert q2a is True,  "2a: ValueError IS-A Exception"
+assert q2b is True,  "2b: ZeroDivisionError IS-A ArithmeticError"
+assert q2c is True,  "2c: IndexError IS-A LookupError"
+assert q2d is True,  "2d: Exception IS-A BaseException"
+assert q2e is False, "2e: KeyboardInterrupt NU este subclasa a Exception!"
 print("Exercițiul 2: toate testele au trecut ✓")
 
 
 # ============================================================
-# EXERCIȚIUL 3 — Parametri cu valori default
+# EXERCIȚIUL 3 — try / except de bază
 # ============================================================
-# TODO: Definește o funcție power(base, exponent=2) care:
-#   - calculează base ** exponent
-#   - are exponent cu valoare default 2 (pătrat)
-#   - returnează rezultatul
+# TODO: Implementează funcția safe_divide(a, b) care:
+#   - împarte a la b
+#   - dacă b este 0, returnează None (fără să crape)
+#   - dacă a sau b nu sunt numere, returnează None
+#   - altfel returnează rezultatul ca float
 
-# scrie funcția aici
-def power(base: int, exponent: int =2) -> float:
-    return base**exponent
+def safe_divide(a, b):
+    """Împarte a la b în mod sigur.
+
+    Args:
+        a: Deîmpărțitul.
+        b: Împărțitorul.
+
+    Returns:
+        Rezultatul ca float, sau None dacă operația eșuează.
+
+    Example:
+        >>> safe_divide(10, 2)
+        5.0
+        >>> safe_divide(10, 0)
+        None
+    """
+    # TODO: implementează cu try/except
+    pass
 
 
-# Teste
-assert power(3) == 9        # 3 ** 2
-assert power(3, 3) == 27    # 3 ** 3
-assert power(2, 0) == 1     # 2 ** 0
+assert safe_divide(10, 2)   == 5.0
+assert safe_divide(10, 0)   is None
+assert safe_divide("x", 2)  is None
+assert safe_divide(9, 3)    == 3.0
 print("Exercițiul 3: toate testele au trecut ✓")
 
 
 # ============================================================
-# EXERCIȚIUL 4 — Funcții ca argumente (first-class functions)
+# EXERCIȚIUL 4 — except multiplu + else + finally
 # ============================================================
-# TODO: Definește o funcție apply(func, values) care:
-#   - primește o funcție și o listă de valori
-#   - aplică func pe fiecare element și returnează lista rezultatelor
-#   - este echivalentul manual al lui map()
+# TODO: Implementează funcția parse_int(value) care:
+#   - încearcă să convertească value la int
+#   - dacă reușește: afișează "Conversie reușită: {result}" și returnează int-ul
+#   - dacă ValueError: afișează "Eroare: nu e număr valid" și returnează None
+#   - dacă TypeError: afișează "Eroare: tip invalid" și returnează None
+#   - INDIFERENT de rezultat: afișează "Operație finalizată."
 
-# scrie funcția aici
-def apply(func, values: list) -> list:
-    """
-    Applies a function to each element in a list and returns the results.
+def parse_int(value):
+    """Convertește o valoare la int cu tratare explicita a erorilor.
 
     Args:
-        func: A function to apply to each element.
-        values: A list of values.
+        value: Valoarea de convertit.
 
     Returns:
-        A list of results after applying func to each element.
+        int dacă conversia reușește, None altfel.
     """
-    results = []
-    for value in values:
-        results.append(func(value))
-    return results
+    # TODO: implementează cu try / except ValueError / except TypeError / finally
+    pass
+
+
+assert parse_int("42")   == 42
+assert parse_int("abc")  is None
+assert parse_int(None)   is None
+assert parse_int("7")    == 7
+print("Exercițiul 4: toate testele au trecut ✓")
+
+
+# ============================================================
+# EXERCIȚIUL 5 — raise + excepție custom
+# ============================================================
+class InvalidAgeError(ValueError):
+    """Excepție aruncată când vârsta introdusă este invalidă."""
+    pass
+
+
+def validate_age(age: int) -> str:
+    """Validează vârsta unui utilizator.
+
+    Args:
+        age: Vârsta de validat.
+
+    Returns:
+        Categoria de vârstă: 'minor', 'adult', sau 'senior'.
+
+    Raises:
+        InvalidAgeError: Dacă age < 0 sau age > 150.
+        TypeError: Dacă age nu este int.
+
+    Example:
+        >>> validate_age(25)
+        'adult'
+        >>> validate_age(-1)
+        InvalidAgeError: Varsta invalida: -1
+    """
+    # TODO: implementează funcția
+    pass
+
+
+assert validate_age(10)  == "minor"
+assert validate_age(30)  == "adult"
+assert validate_age(70)  == "senior"
+
+try:
+    validate_age(-1)
+    assert False, "Trebuia sa arunce InvalidAgeError"
+except InvalidAgeError:
+    pass
+
+try:
+    validate_age(200)
+    assert False, "Trebuia sa arunce InvalidAgeError"
+except InvalidAgeError:
+    pass
+
+try:
+    validate_age("treizeci")
+    assert False, "Trebuia sa arunce TypeError"
+except TypeError:
+    pass
+
+print("Exercițiul 5: toate testele au trecut ✓")
+
+# ============================================================
+# EXERCIȚIUL 1 — *args
+# ============================================================
+# TODO: Definește o funcție summation(*args) care:
+#   - acceptă oricâte argumente numerice
+#   - returnează suma lor
+#   - dacă nu primește niciun argument, returnează 0
+# scrie funcția aici
+def summation(*args):
+    if args is None:
+        return 0
+    return sum(args)
+
 
 # Teste
-assert apply(str.upper, ["hello", "world"]) == ["HELLO", "WORLD"]
-assert apply(lambda x: x * 2, [1, 2, 3]) == [2, 4, 6]
+assert summation() == 0
+assert summation(1, 2, 3) == 6
+assert summation(10, -5, 2) == 7
+print("Exercițiul 1: toate testele au trecut ✓")
+
+
+# ============================================================
+# EXERCIȚIUL 2 — **kwargs
+# ============================================================
+# TODO: Definește o funcție build_profile(**kwargs) care:
+#   - acceptă oricâte keyword arguments
+#   - returnează un dict cu toate perechile cheie-valoare primite
+#   - adaugă automat cheia "active": True la orice profil
+
+# scrie funcția aici
+def build_profile(**kwargs):
+    kwargs["active"] = True
+    return kwargs
+
+
+# Teste
+result = build_profile(name="Ana", role="admin")
+assert result == {"name": "Ana", "role": "admin", "active": True}
+result2 = build_profile()
+assert result2 == {"active": True}
+print("Exercițiul 2: toate testele au trecut ✓")
+
+# ============================================================
+# EXERCIȚIUL 3 — Scope: local vs global
+# ============================================================
+# TODO: Completează funcțiile de mai jos respectând regulile de scope.
+
+counter = 0  # variabilă globală
+
+
+# a) Definește increment() care incrementează counter-ul global cu 1
+#    Hint: folosește 'global'
+
+# scrie funcția aici
+def increment():
+    global counter
+    counter += 1
+
+# b) Definește get_counter() care returnează valoarea curentă a counter-ului
+
+# scrie funcția aici
+def get_counter():
+    global counter
+    return counter
+
+# Teste
+increment()
+increment()
+increment()
+assert get_counter() == 3
+print("Exercițiul 3: toate testele au trecut ✓")
+
+
+# ============================================================
+# EXERCIȚIUL 4 — Combinat: *args + **kwargs
+# ============================================================
+# TODO: Definește o funcție log_event(event, *tags, **metadata) care:
+#   - event (str): numele evenimentului — parametru pozițional obligatoriu
+#   - *tags: taguri opționale ca strings
+#   - **metadata: perechi cheie-valoare opționale
+#   - returnează un dict cu structura:
+#     {"event": event, "tags": list(tags), "metadata": metadata}
+
+# scrie funcția aici
+def log_event(event, *tags, **metadata):
+    """
+    Loghează un eveniment cu taguri și metadate opționale.
+
+    Args:
+        event (str): numele evenimentului
+        *tags: taguri opționale ca strings
+        **metadata: perechi cheie-valoare opționale
+
+    Returns:
+        dict: {"event": ..., "tags": [...], "metadata": {...}}
+    """
+    return {
+        "event": event,
+        "tags": list(tags),
+        "metadata": metadata
+    }
+
+#Teste
+result = log_event("login", "auth", "web", user="ana", ip="127.0.0.1")
+assert result["event"] == "login"
+assert result["tags"] == ["auth", "web"]
+assert result["metadata"] == {"user": "ana", "ip": "127.0.0.1"}
 print("Exercițiul 4: toate testele au trecut ✓")
 
 
 # ============================================================
 # EXERCIȚIUL 5 — Funcție production-like
 # ============================================================
-def calculate_discount(price: float, discount_pct: float, min_price: float = 0.0) -> float:
-    """Calculează prețul final după aplicarea unui discount.
+def format_table(headers: tuple, rows: list, col_width: int = 15) -> str:
+    """Formatează date tabulare ca string aliniat.
 
     Args:
-        price: Prețul inițial al produsului (>= 0).
-        discount_pct: Procentul de discount (0-100).
-        min_price: Prețul minim acceptat după discount (default 0.0).
+        headers: Tuple cu numele coloanelor.
+        rows: Listă de tuple, fiecare reprezentând un rând.
+        col_width: Lățimea fiecărei coloane în caractere (default 15).
 
     Returns:
-        Prețul final după discount, nu mai mic decât min_price.
-
-    Raises:
-        ValueError: Dacă price < 0 sau discount_pct nu este în [0, 100].
+        String formatat cu header, separator și rânduri aliniate la stânga.
 
     Example:
-        >>> calculate_discount(100.0, 20.0)
-        80.0
-        >>> calculate_discount(100.0, 20.0, min_price=90.0)
-        90.0
+        >>> print(format_table(("Nume", "Rol"), [("Ana", "admin")]))
+        Nume           Rol
+        ---------------...
+        Ana            admin
     """
-    if price < 0:
-        raise ValueError(f"price must be >= 0, got {price}")
-    if not 0 <= discount_pct <= 100:
-        raise ValueError(f"discount_pct must be in [0, 100], got {discount_pct}")
+    header_line = "".join(col.ljust(col_width) for col in headers)
 
-    discounted_price = price * (1 - discount_pct / 100)
+    # 2. Separatorul — lățime totală = col_width * număr coloane
+    separator = "-" * (col_width * len(headers))
 
-    return max(discounted_price, min_price)
-    pass
+    # 3. Rândurile de date — același pattern ca header-ul
+    data_lines = [
+        "".join(str(cell).ljust(col_width) for cell in row)
+        for row in rows
+    ]
+
+    # 4. Asamblare finală
+    all_lines = [header_line, separator] + data_lines
+    return "\n".join(all_lines)
 
 # Teste
-assert calculate_discount(100.0, 20.0) == 80.0
-assert calculate_discount(100.0, 20.0, min_price=90.0) == 90.0
-assert calculate_discount(50.0, 0.0) == 50.0
-assert calculate_discount(200.0, 100.0) == 0.0
-try:
-    calculate_discount(-10.0, 20.0)
-    assert False, "Trebuia sa arunce ValueError"
-except ValueError:
-    pass
+headers = ("Nume", "Rol", "Status")
+rows = [
+    ("Ana", "admin", "activ"),
+    ("Ion", "user", "inactiv"),
+]
+output = format_table(headers, rows, col_width=12)
+assert "Nume" in output
+assert "Ana" in output
+assert "inactiv" in output
 print("Exercițiul 5: toate testele au trecut ✓")
